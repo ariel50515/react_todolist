@@ -1,10 +1,12 @@
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext , useState } from "react";
 import TodoReducer, { ACTIONS, initState } from "./TodoReducer";
 
 export const TodoContext = createContext(initState);
 
 export const TodoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(TodoReducer, initState);
+
+  const [editMode, setEditMode] = useState(false)
 
   const addTodo = (todoContent) => {
     const todo = todoObj(todoContent);
@@ -47,6 +49,10 @@ export const TodoProvider = ({ children }) => {
 
   const value = {
     todos: state.todos,
+    todo,
+    setTodo,
+    editMode,
+    setEditMode,
     addTodo,
     toggleTodo,
     deleteTodo,
