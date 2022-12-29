@@ -6,13 +6,11 @@ export const ACTIONS = {
   ADD_TODO: "ADD_TODO",
   TOGGLE_TODO: "TOGGLE_TODO",
   DELETE_TODO: "DELETE_TODO",
+  EDIT_TODO: "EDIT_TODO",
 };
 
 const TodoReducer = (state, action) => {
   const { type, payload } = action;
-  console.log("type", type);
-  console.log("payload", payload);
-
   switch (type) {
     case ACTIONS.ADD_TODO:
       return {
@@ -29,9 +27,14 @@ const TodoReducer = (state, action) => {
         ...state,
         todos: payload.todo,
       };
+    case ACTIONS.EDIT_TODO:
+      return {
+        ...state,
+        todos: payload.todo,
+      };
     default:
       return state;
   }
 };
 
-export default TodoReducer
+export default TodoReducer;
