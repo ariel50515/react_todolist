@@ -1,29 +1,26 @@
 import React from "react";
-import { ACTIONS } from "./Actions";
+import { useTodo } from "./TodoContext";
 
-const Todo = ({ todo, dispatch }) => {
+const Todo = () => {
+  const { todos, toggleTodo, deleteTodo } = useTodo();
   return (
-    <div className="todo">
-      <span style={{ textDecoration: todo.complete ? "line-through" : null }}>
-        {todo.todoContent}
-      </span>
-      <button
-        className="toggle"
-        onClick={() =>
-          dispatch({ type: ACTIONS.TOGGLE, payload: { id: todo.id } })
-        }
-      >
-        {todo.complete ? "Cancel" : "Complete"}
-      </button>
-      <button
-        className="delete"
-        onClick={() =>
-          dispatch({ type: ACTIONS.DELETE, payload: { id: todo.id } })
-        }
-      >
-        Delete
-      </button>
-    </div>
+    <>
+      {todos.map((todo) => (
+        <div className="todo" key={todo.id}>
+          <span
+            style={{ textDecoration: todo.complete ? "line-through" : null }}
+          >
+            {todo.todoContent}
+          </span>
+          <button className="toggle" onClick={() => toggleTodo(todo.id)}>
+            {todo?.complete ? "Cancel" : "Complete"}
+          </button>
+          <button className="delete" onClick={() => deleteTodo(todo.id)}>
+            Delete
+          </button>
+        </div>
+      ))}
+    </>
   );
 };
 
